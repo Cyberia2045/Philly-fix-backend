@@ -1,0 +1,2 @@
+class IssueUser < ApplicationRecord
+end
