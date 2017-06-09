@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
   def index
+      user = User.where(params[:email]).first
+      if user.password === params[:password]
+        session[user_id] = user.id
+        render json: user
+      end
   end
 
   def show
@@ -9,7 +14,7 @@ class UsersController < ApplicationController
       user = User.new(user_params)
       if user.save!
           session[:user_id] = user.id
-          render json :user
+          render json: user
       end
   end
 
