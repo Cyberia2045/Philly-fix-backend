@@ -6,6 +6,7 @@ class IssuesController < ApplicationController
   end
 
   def create
+    Issue.create(issue_params)
   end
 
   def update
@@ -13,4 +14,11 @@ class IssuesController < ApplicationController
 
   def destroy
   end
+
+  private
+
+  def issue_params
+    params.require(:issue).permit(:neighborhood, :category, :description)
+  end
+
 end
