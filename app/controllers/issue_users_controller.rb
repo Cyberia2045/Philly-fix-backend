@@ -1,6 +1,7 @@
 class IssueUsersController < ApplicationController
   def index
-    #   render json: IssueUser.where(user_id: params[:user_id])
+      user = User.find(params[:user_id])
+      render json: user.issues
   end
 
   def show
@@ -8,12 +9,14 @@ class IssueUsersController < ApplicationController
   end
 
   def create
-      existing = IssueUser.where(user_id: params[:user_id], issue_id: params[:issue_id]).first
-      if existing != nil
-          join = IssueUser.new(issue_user_params)
-          if join.save!
-              render json: Issue.find(params[:issue_id])
+      join = IssueUser.new(issue_user_params)
+      if join.save!
+          issues = Issue.all
+          issues_json = issues.as_json
+          issues_json.each_with_index do |issue, index|
+              issue[:users] = issues[index].users
           end
+          render json: issues_json
       end
   end
 

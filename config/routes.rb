@@ -4,5 +4,6 @@ Rails.application.routes.draw do
     resources :issues
     resources :dispatchers
     resources :issue_users
+    resources :issue_dispatchers
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
