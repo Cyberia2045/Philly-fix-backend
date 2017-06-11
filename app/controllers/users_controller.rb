@@ -8,6 +8,10 @@ class UsersController < ApplicationController
   end
 
   def show
+      user = User.find(params[:id])
+      user_json = user.as_json
+      user_json[:issues] = user.issues
+      render json: user_json
   end
 
   def create
