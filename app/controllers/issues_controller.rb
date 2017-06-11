@@ -1,19 +1,28 @@
 class IssuesController < ApplicationController
   def index
+      issues = Issue.all
+      issues_json = issues.as_json
+      issues_json.each_with_index do |issue, index|
+          issue[:users] = issues[index].users
+      end
+      render json: issues_json
   end
 
   def show
+      issue = Issue.find(params[:id])
+      issue_json = issue.as_json
+      issue_json[:users] = issue.users
+      render json: issue_json
   end
 
   def create
-<<<<<<< HEAD
-    Issue.create(issue_params)
-=======
       issue = Issue.new(issue_params)
-      if user.save!
-          render json :issue
+      if issue.save!
+          join = IssueUser.new(issue_id: issue.id, user_id: params[:user_id])
+          if join.save!
+              render json :issue
+          end
       end
->>>>>>> fe8d0e5bff109c5900ed9e380bf19dbe37635fba
   end
 
   def update
@@ -23,15 +32,9 @@ class IssuesController < ApplicationController
   end
 
   private
-<<<<<<< HEAD
 
   def issue_params
     params.require(:issue).permit(:neighborhood, :category, :description)
   end
 
-=======
-  def issue_params
-      params.require(:issue).permit(:category, :neighborhood, :lat, :lng, :description, :status)
-  end
->>>>>>> fe8d0e5bff109c5900ed9e380bf19dbe37635fba
 end
