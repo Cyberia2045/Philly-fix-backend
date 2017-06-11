@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   def index
-      user = User.where(params[:email]).first
-      if user.password === params[:password]
-        session[user_id] = user.id
-        render json: user
+      user = User.where(email: params[:email]).first
+      if user != nil
+        if user.password === params[:password]
+          session[:user_id] = user.id
+          render json: user
+        end  
       end
   end
 

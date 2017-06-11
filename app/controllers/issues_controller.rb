@@ -20,7 +20,7 @@ class IssuesController < ApplicationController
       if issue.save!
           join = IssueUser.new(issue_id: issue.id, user_id: params[:user_id])
           if join.save!
-              render json :issue
+              render json: Issue.all
           end
       end
   end
