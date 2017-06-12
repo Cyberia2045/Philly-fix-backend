@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609164848) do
+ActiveRecord::Schema.define(version: 20170612160830) do
 
   create_table "dispatchers", force: :cascade do |t|
     t.string "first_name"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20170609164848) do
     t.string "department"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "dispatcher_verification"
   end
 
   create_table "issue_dispatchers", force: :cascade do |t|

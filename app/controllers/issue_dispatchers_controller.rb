@@ -1,6 +1,6 @@
 class IssueDispatchersController < ApplicationController
   def index
-      dispatcher = Dispatcher.find(params[:dispatcher_id])
+      dispatcher = Dispatcher.find(params[:id])
       render json: dispatcher.issues
   end
 
