@@ -20,7 +20,6 @@ class IssuesController < ApplicationController
   end
 
   def create
-      p params
       issue = Issue.new(issue_params)
       if issue.save!
         if params[:userType] == 'user'

@@ -20,7 +20,7 @@ class DispatchersController < ApplicationController
       dispatcher = Dispatcher.new(dispatcher_params)
       if dispatcher.save!
           session[:dispatcher_id] = dispatcher.id
-          render json :dispatcher
+          render json: dispatcher
       end
   end
 
