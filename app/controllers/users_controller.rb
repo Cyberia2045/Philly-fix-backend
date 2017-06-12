@@ -5,7 +5,7 @@ class UsersController < ApplicationController
         if user.password === params[:password]
           session[:user_id] = user.id
           render json: user
-        end  
+        end
       end
   end
 
