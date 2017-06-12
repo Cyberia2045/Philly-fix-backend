@@ -5,6 +5,9 @@ class IssuesController < ApplicationController
       issues_json.each_with_index do |issue, index|
           issue[:users] = issues[index].users
       end
+      issues_json.each_with_index do |issue, index|
+          issue[:dispatchers] = issues[index].dispatchers
+      end
       render json: issues_json
   end
 
@@ -12,16 +15,32 @@ class IssuesController < ApplicationController
       issue = Issue.find(params[:id])
       issue_json = issue.as_json
       issue_json[:users] = issue.users
+      issue_json[:dispatchers] = issue.dispatchers
       render json: issue_json
   end
 
   def create
+      p params
       issue = Issue.new(issue_params)
       if issue.save!
-          join = IssueUser.new(issue_id: issue.id, user_id: params[:user_id])
-          if join.save!
-              render json: Issue.all
-          end
+        if params[:userType] == 'user'
+            join = IssueUser.new(issue_id: issue.id, user_id: params[:id])
+        elsif params[:userType] == 'dispatcher'
+            join = IssueDispatcher.new(issue_id: issue.id, dispatcher_id: params[:id])
+        else
+            return
+        end
+        if join.save!
+            issues = Issue.all
+            issues_json = issues.as_json
+            issues_json.each_with_index do |issue, index|
+                issue[:users] = issues[index].users
+            end
+            issues_json.each_with_index do |issue, index|
+                issue[:dispatchers] = issues[index].dispatchers
+            end
+            render json: issues_json
+        end
       end
   end
 

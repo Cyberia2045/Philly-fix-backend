@@ -1,9 +1,19 @@
 class DispatchersController < ApplicationController
   def index
-
+      dispatcher = Dispatcher.where(email: params[:email]).first
+      if dispatcher != nil
+        if dispatcher.password === params[:password]
+          session[:dispatcher_id] = dispatcher.id
+          render json: dispatcher
+        end
+      end
   end
 
   def show
+      dispatcher = Dispatcher.find(params[:id])
+      dispatcher_json = dispatcher.as_json
+      dispatcher_json[:issues] = dispatcher.issues
+      render json: dispatcher_json
   end
 
   def create

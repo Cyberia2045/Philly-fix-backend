@@ -16,6 +16,9 @@ class IssueUsersController < ApplicationController
           issues_json.each_with_index do |issue, index|
               issue[:users] = issues[index].users
           end
+          issues_json.each_with_index do |issue, index|
+              issue[:dispatchers] = issues[index].dispatchers
+          end
           render json: issues_json
       end
   end
