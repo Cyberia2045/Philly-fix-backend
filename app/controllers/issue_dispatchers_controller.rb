@@ -1,7 +1,15 @@
 class IssueDispatchersController < ApplicationController
   def index
       dispatcher = Dispatcher.find(params[:id])
-      render json: dispatcher.issues
+      issues = dispatcher.issues
+      issues_json = issues.as_json
+      issues_json.each_with_index do |issue, index|
+          issue[:users] = issues[index].users
+      end
+      issues_json.each_with_index do |issue, index|
+          issue[:dispatchers] = issues[index].dispatchers
+      end
+      render json: issues_json
   end
 
   def show
