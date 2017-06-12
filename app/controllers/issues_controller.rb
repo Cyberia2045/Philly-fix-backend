@@ -21,6 +21,8 @@ class IssuesController < ApplicationController
 
   def create
       issue = Issue.new(issue_params)
+      p params
+      p issue_params
       if issue.save!
         if params[:userType] == 'user'
             join = IssueUser.new(issue_id: issue.id, user_id: params[:id])
@@ -52,6 +54,6 @@ class IssuesController < ApplicationController
   private
 
   def issue_params
-    params.require(:issue).permit(:neighborhood, :category, :description)
+    params.require(:issue).permit(:neighborhood, :category, :description, :lat, :lng, :address)
   end
 end
