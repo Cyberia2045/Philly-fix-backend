@@ -32,6 +32,6 @@ class DispatchersController < ApplicationController
 
   private
   def dispatcher_params
-      params.require(:dispatcher).permit(:first_name, :last_name, :email, :password, :department, :dispatcher_verification)
+      params.require(:dispatcher).permit(:first_name, :last_name, :email, :password, :dispatcher_department, :dispatcher_verification)
   end
 end
