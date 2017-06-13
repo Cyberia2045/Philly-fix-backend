@@ -12,7 +12,6 @@ class IssueUsersController < ApplicationController
   end
 
   def show
-    #   render json: IssueUser.where(issue_id: params[:issue_id])
   end
 
   def create

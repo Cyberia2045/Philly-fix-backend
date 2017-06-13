@@ -1,7 +1,7 @@
 class IssueDispatchersController < ApplicationController
   def index
       dispatcher = Dispatcher.find(params[:id])
-      issues = Issue.all
+      issues = dispatcher.issues
       issues_json = issues.as_json
       issues_json.each_with_index do |issue, index|
           issue[:users] = issues[index].users
