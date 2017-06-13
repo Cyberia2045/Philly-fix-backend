@@ -35,6 +35,16 @@ class IssueUsersController < ApplicationController
   end
 
   def destroy
+      IssueUser.where(issue_id: params[:id], user_id: params[:user_id])[0].destroy
+      issues = Issue.all
+      issues_json = issues.as_json
+      issues_json.each_with_index do |issue, index|
+          issue[:users] = issues[index].users
+      end
+      issues_json.each_with_index do |issue, index|
+          issue[:dispatchers] = issues[index].dispatchers
+      end
+      render json: issues_json
   end
 
   private
