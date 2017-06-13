@@ -1,13 +1,12 @@
 class IssueDispatchersController < ApplicationController
   def index
       dispatcher = Dispatcher.find(params[:id])
-      issues = dispatcher.issues
+      issues = Issue.all
       issues_json = issues.as_json
       issues_json.each_with_index do |issue, index|
           issue[:users] = issues[index].users
-      end
-      issues_json.each_with_index do |issue, index|
           issue[:dispatchers] = issues[index].dispatchers
+          issue[:image_url] = issues[index].image.url
       end
       render json: issues_json
   end
@@ -22,9 +21,8 @@ class IssueDispatchersController < ApplicationController
         issues_json = issues.as_json
         issues_json.each_with_index do |issue, index|
             issue[:users] = issues[index].users
-        end
-        issues_json.each_with_index do |issue, index|
             issue[:dispatchers] = issues[index].dispatchers
+            issue[:image_url] = issues[index].image.url
         end
         render json: issues_json
     end
@@ -39,9 +37,8 @@ class IssueDispatchersController < ApplicationController
       issues_json = issues.as_json
       issues_json.each_with_index do |issue, index|
           issue[:users] = issues[index].users
-      end
-      issues_json.each_with_index do |issue, index|
           issue[:dispatchers] = issues[index].dispatchers
+          issue[:image_url] = issues[index].image.url
       end
       render json: issues_json
   end

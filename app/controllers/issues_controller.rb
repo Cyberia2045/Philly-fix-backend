@@ -4,9 +4,8 @@ class IssuesController < ApplicationController
       issues_json = issues.as_json
       issues_json.each_with_index do |issue, index|
           issue[:users] = issues[index].users
-      end
-      issues_json.each_with_index do |issue, index|
           issue[:dispatchers] = issues[index].dispatchers
+          issue[:image_url] = issues[index].image.url
       end
       render json: issues_json
   end
@@ -16,6 +15,7 @@ class IssuesController < ApplicationController
       issue_json = issue.as_json
       issue_json[:users] = issue.users
       issue_json[:dispatchers] = issue.dispatchers
+      issue[:image_url] = issues[index].image.url
       render json: issue_json
   end
 
@@ -36,9 +36,8 @@ class IssuesController < ApplicationController
             issues_json = issues.as_json
             issues_json.each_with_index do |issue, index|
                 issue[:users] = issues[index].users
-            end
-            issues_json.each_with_index do |issue, index|
                 issue[:dispatchers] = issues[index].dispatchers
+                issue[:image_url] = issues[index].image.url
             end
             render json: issues_json
         end
