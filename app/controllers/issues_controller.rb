@@ -45,6 +45,13 @@ class IssuesController < ApplicationController
       end
   end
 
+  def upload_image
+      issue = Issue.last
+      issue.update_attribute(:image, params[:data])
+    p params
+    render json: issue
+  end
+
   def update
   end
 

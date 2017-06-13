@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
     resources :users
     resources :issues
+    post '/issues/image', to: 'issues#upload_image'
     resources :dispatchers
     resources :issue_users
     resources :issue_dispatchers
