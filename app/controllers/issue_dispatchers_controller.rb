@@ -15,6 +15,10 @@ class IssueDispatchersController < ApplicationController
   end
 
   def create
+    existing = IssueDispatcher.where(issue_dispatcher_params)[0]
+    if existing != nil
+        return
+    end
     join = IssueDispatcher.new(issue_dispatcher_params)
     if join.save!
         issues = Issue.all

@@ -15,6 +15,10 @@ class IssueUsersController < ApplicationController
   end
 
   def create
+      existing = IssueUser.where(issue_user_params)[0]
+      if existing != nil
+          return
+      end
       join = IssueUser.new(issue_user_params)
       if join.save!
           issues = Issue.all
